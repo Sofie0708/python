@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Questao2
+{% endblock %}
+
+{% block content %}
+<h3>Questão 2</h3>
+<ul>
+    {% for i in dados %}
+    <li>
+        nome: {{ i.nome }} - idade: {{ i.idade }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

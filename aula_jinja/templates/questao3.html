@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Questao3
+{% endblock %}
+
+{% block content %}
+<h3>Dados dos usuarios </h3>
+<ul>
+    {% for user in usuario %}
+    <li>
+        {{ user.nome }} - Email: {{ user.email }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
