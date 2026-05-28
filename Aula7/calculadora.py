@@ -1,5 +1,4 @@
 import math
-
 from flask import render_template, request
 
 def calcular():
@@ -10,7 +9,7 @@ def calcular():
         resultado = "Erro: número negativo"
         etapas = f"Não há possibiidade de calcular com {num1}."
     else:
-        num2_valor = request.form.get("num2", "").strip()
+        num2_valor = request.form.get("num2", "")
         if operacao != "sqrt" and operacao != "log" and not num2_valor:
             return render_template(
                 "calculadora.html",
@@ -18,21 +17,18 @@ def calcular():
                 resultados="",
             )
         
-        num2 = float(num2_valor)
+        num2 = float(num2_valor) if num2_valor != '' else 0
 
         match operacao:
             case "+":
                 resultado = num1 + num2
                 etapas = f"{num1} + {num2} = {resultado}"
-                return etapas 
             case "-":
                 resultado = num1 - num2
                 etapas = f"{num1} - {num2} = {resultado}"
-                return etapas 
             case "*":
                 resultado = num1 * num2
                 etapas = f"{num1} * {num2} = {resultado}"
-                return etapas 
             case "/":
                 if num2 != 0:
                     resultado = num1 / num2
@@ -40,18 +36,17 @@ def calcular():
                 else:
                     resultado = "Erro: Divisão por zero"
                     etapas = "Não é possível dividir por zero."
-                return etapas 
             case "**":
                 resultado = num1 ** num2
                 etapas = f"{num1} ** {num2} = {resultado}"
-                return etapas 
             case "log":
                 resultado = round(math.log(num1, 10),2)
                 etapas = f"{num1} = {resultado}"
-                return etapas 
             case "sqrt":
                 resultado = round(math.sqrt(num1), 2) 
                 etapas = f"√{num1} = {resultado}"
-                return etapas 
+            case _:
+                resultado = "Operação inválida"
+                etapas = "A operação selecionada é inválida."
 
     return render_template("calculadora.html", etapas=etapas, resultados=resultado)
